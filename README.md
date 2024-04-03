@@ -1,6 +1,6 @@
-# Html::Pipeline::ExternalLink
+# HtmlPipeline::ExternalLink
 
-External link filter for [html\-pipeline](https://github.com/jch/html-pipeline).
+External link `NodeFilter` for [html\-pipeline](https://github.com/jch/html-pipeline).
 
 ## Installation
 
@@ -21,7 +21,7 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-filter = HTML::Pipeline::ExternalLinkFilter.new('<a href="https://google.com/">https://google.com/</a>', hostname: 'microsoft.com')
+filter = HTMLPipeline::ExternalLinkFilter.call('<a href="https://google.com/">https://google.com/</a>', context: { hostname: 'microsoft.com' })
 filter.call.to_s # => '<a href="https://google.com/" rel="nofollow noopener" target="_blank">https://google.com/</a>'
 ```
 
@@ -41,4 +41,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Html::Pipeline::ExternalLink project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/html-pipeline-external_link/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the HtmlPipeline::ExternalLink project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/html-pipeline-external_link/blob/master/CODE_OF_CONDUCT.md).

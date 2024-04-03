@@ -5,7 +5,7 @@ require "html/pipeline/external_link/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "html-pipeline-external_link"
-  spec.version       = HTML::Pipeline::ExternalLink::VERSION
+  spec.version       = HTMLPipeline::ExternalLink::VERSION
   spec.authors       = ["aki77"]
   spec.email         = ["aki77@users.noreply.github.com"]
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "addressable"
-  spec.add_dependency "html-pipeline"
+  spec.add_dependency "html-pipeline", "~> 3.0"
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", ">= 12.3.3"
   spec.add_development_dependency "rspec", "~> 3.0"
