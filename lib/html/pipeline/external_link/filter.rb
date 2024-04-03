@@ -1,42 +1,39 @@
-require 'html/pipeline'
+require 'html_pipeline'
 require "addressable/uri"
 
 # SEE: https://github.com/increments/qiita-markdown/blob/master/lib/qiita/markdown/filters/external_link.rb
-module HTML
-  class Pipeline
-    class ExternalLinkFilter < Filter
-      def call
-          doc.search("a").each do |anchor|
-            next unless anchor["href"]
-            href = anchor["href"].strip
-            href_host = host_of(href)
-            next unless href_host
-            if href_host != hostname
-              anchor["rel"] = "nofollow noopener"
-              anchor["target"] = "_blank"
-            end
-          end
+class HTMLPipeline
+  class ExternalLinkFilter < NodeFilter
+    SELECTOR = Selma::Selector.new(match_element: %(a[href^="http"]))
 
-          doc
-        end
+    def selector
+      SELECTOR
+    end
 
-        def validate
-          needs :hostname
-        end
+    def handle_element(element)
+      return unless element["href"]
 
-        private
+      href = element["href"].strip
+      href_host = host_of(href)
+      return unless href_host
 
-        def host_of(url)
-          uri = Addressable::URI.parse(url)
-          uri.host
-        rescue Addressable::URI::InvalidURIError
-          nil
-        end
+      if href_host != hostname
+        element["rel"] = "nofollow noopener"
+        element["target"] = "_blank"
+      end
+    end
 
-        def hostname
-          context[:hostname]
-        end
+    private
 
+    def host_of(url)
+      uri = Addressable::URI.parse(url)
+      uri.host
+    rescue Addressable::URI::InvalidURIError
+      nil
+    end
+
+    def hostname
+      context[:hostname] || raise("Missing context :hostname for #{self.class.name}")
     end
   end
 end
